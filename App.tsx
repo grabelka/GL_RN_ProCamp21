@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Platform, Alert, Text, View, TextInput, Button, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { MyButton } from './src/components/MyButton';
+import { MyInput } from './src/components/MyInput';
+import { StyleSheet, Platform, Pressable, Text, View, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default function App() {
   return (
@@ -9,19 +11,35 @@ export default function App() {
           behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
-              <Text style={styles.title}>My application</Text>
-              <TextInput style={styles.input} 
-                placeholder="username"
-                autoCapitalize='none' 
-                autoCompleteType='username'
+            <Text style={[styles.title, styles.shadow]}>DatingLy</Text>
+              <MyInput 
+                iconName='username'
+                placeholder="username" 
                 />
-              <TextInput style={styles.input} 
-                placeholder="password"
-                secureTextEntry={ true }
-                autoCapitalize='none'
+              <MyInput 
+                iconName='eyeo'
+                placeholder="password" 
+                secure={true}
                 />
-              <View style={styles.buttonContainer}>
-                <Text style={styles.button}>Sign In</Text>
+              <Pressable 
+              style={({ pressed }) => {
+                return Platform.OS === 'ios' && {
+                  opacity: pressed ? 0.3 : 1
+                  }
+                }}>
+                <Text style={styles.forgot}>Forgot password?</Text>
+              </Pressable>
+              <MyButton t="Sign In"/>
+              <View style={styles.signUpViev}>
+                <Text style={styles.signUpText}>Don't have an account? </Text>
+                <Pressable 
+                style={({ pressed }) => {
+                  return Platform.OS === 'ios' && {
+                    opacity: pressed ? 0.3 : 1
+                    }
+                  }}>
+                  <Text style={styles.signUpButton}>SIGN UP</Text>
+                </Pressable>
               </View>
             </View>
           </TouchableWithoutFeedback>
@@ -37,6 +55,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 400,
+  },
+  shadow: {
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 5,
+      height:6
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4
   },
   text: {
     textAlign: 'center',
@@ -46,17 +74,25 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Cochin-BoldItalic',
-    fontSize: 50,
+    fontSize: 65,
     marginVertical: 30
   },
   input: {
-    marginBottom: 20,
+    marginTop: 20,
     borderColor: 'gray',
     borderWidth: 2,
     borderRadius: 10,
     padding: 5,
     width: '70%',
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'Courier'
+  },
+  forgot: {
+    color: 'gray',
+    fontSize: 14,
+    marginTop: 5,
+    marginBottom: 30,
+    left: 80
   },
   button: {
     backgroundColor: '#1E90FF',
@@ -69,5 +105,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 10,
     padding: 10
+  },
+  signUpViev: {
+    flexDirection: 'row',
+    marginTop: 50
+  },
+  signUpText: {
+    color: 'gray',
+    fontSize: 20
+  },
+  signUpButton: {
+    color: '#1E90FF',
+    fontSize: 20
   }
 });
