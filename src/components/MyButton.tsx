@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, Platform, Pressable, Text, View } from 'react-native';
 
-export const MyButton = ({t}: {t:string}) => {
+interface InputProps {
+  t: string,
+  onPress?: () => void
+}
+
+export const MyButton = ({t, onPress}: InputProps) => {
     return(
         <Pressable 
         style={({ pressed }) => {
@@ -10,7 +15,7 @@ export const MyButton = ({t}: {t:string}) => {
                 }
             }}>
             <View style={[styles.buttonContainer, styles.shadow]}>
-                <Text style={styles.button}>{t}</Text>
+                <Text style={styles.button} onPress={onPress}>{t}</Text>
             </View>
         </Pressable>
     );
