@@ -10,14 +10,14 @@ interface InputProps {
 
 export const MyInput = ({iconName, placeholder, secure}: InputProps) => {
     return(
-        <View style={styles.inputContainer}>
+      <View style={styles.inputContainer}>
         <AntDesign name={iconName} size={30} color="gray" />
         <TextInput style={styles.input} 
             placeholder={placeholder}
             autoCapitalize='none'
             secureTextEntry={secure}
             />
-        </View>
+      </View>
     );
 }
 
